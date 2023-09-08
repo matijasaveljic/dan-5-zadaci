@@ -79,7 +79,7 @@ li button:hover {
 }
 
 .highlight {
-  background-color: #77ea7f; /* Yellow background color for highlighted items */
+  background-color: #77ea7f;
 }
 
 #searchInput {
@@ -88,7 +88,6 @@ li button:hover {
   border-radius: 3px;
 }
 
-/* Add this CSS for the dropdown menu */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -117,6 +116,5 @@ li button:hover {
 }
 
 li {
-  /* ... (other styles) */
-  text-align: left; /* Add this line to left-align the text */
+  text-align: left;
 }
