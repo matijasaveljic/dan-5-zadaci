@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TODO</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h2></h2>
+    <div class="content-container">
+      <header>
+        <div>
+          <div>
+            <div class="naslov">
+              <h1>TODO List</h1>
+            </div>
+            <div>
+              <!-- Add the dropdown menu to the search input -->
+              <div class="dropdown">
+                <input
+                  type="text"
+                  id="searchInput"
+                  autocomplete="off"
+                  placeholder="Search Items..."
+                  oninput="filterItems(this.value)"
+                />
+                <div id="dropdownContent" class="dropdown-content"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div>
+        <div>
+          <h2 class="naslov">Add Items</h2>
+          <form>
+            <input
+              class="input"
+              type="text"
+              id="itemInput"
+              autocomplete="off"
+            />
+            <input
+              type="submit"
+              value="Submit"
+              id="submitButton"
+              class="submitButton"
+            />
+          </form>
+          <h2 class="naslov">Items</h2>
+          <ul id="itemList"></ul>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
