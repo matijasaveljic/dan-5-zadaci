@@ -1,4 +1,3 @@
-// Function to add an item to the TODO list
 function addItem() {
   const inputValue = document.getElementById("itemInput").value.trim();
 
@@ -11,7 +10,7 @@ function addItem() {
 
     removeButton.addEventListener("click", function () {
       listItem.remove();
-      removeFromCookies(inputValue); // Remove from cookies
+      removeFromCookies(inputValue);
       filterItems(document.getElementById("searchInput").value);
     });
 
@@ -21,14 +20,12 @@ function addItem() {
 
     document.getElementById("itemInput").value = "";
 
-    filterItems(document.getElementById("searchInput").value); // Update the dropdown
+    filterItems(document.getElementById("searchInput").value);
 
-    // Save the item in cookies
     saveToCookies(inputValue);
   }
 }
 
-// Function to save an item to cookies
 function saveToCookies(item) {
   const cookies = document.cookie;
   const cookieArray = cookies.split("; ");
@@ -46,7 +43,6 @@ function saveToCookies(item) {
   document.cookie = `items=${encodeURIComponent(itemList.join("; "))}`;
 }
 
-// Function to remove an item from cookies
 function removeFromCookies(item) {
   const cookies = document.cookie;
   const cookieArray = cookies.split("; ");
@@ -64,16 +60,13 @@ function removeFromCookies(item) {
     itemList.splice(index, 1);
   }
 
-  // Clear the entire 'items' cookie
   document.cookie = `items=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 
-  // Re-add the remaining items back to the 'items' cookie
   if (itemList.length > 0) {
     document.cookie = `items=${encodeURIComponent(itemList.join("; "))}`;
   }
 }
 
-// Function to retrieve items from cookies
 function getItemsFromCookies() {
   const cookies = document.cookie;
   const cookieArray = cookies.split("; ");
@@ -88,7 +81,6 @@ function getItemsFromCookies() {
   }
 }
 
-// Function to add an item from cookies
 function addItemFromCookies(item) {
   const listItem = document.createElement("li");
   listItem.textContent = item;
@@ -98,7 +90,7 @@ function addItemFromCookies(item) {
 
   removeButton.addEventListener("click", function () {
     listItem.remove();
-    removeFromCookies(item); // Remove from cookies
+    removeFromCookies(item);
     filterItems(document.getElementById("searchInput").value);
   });
 
@@ -107,33 +99,25 @@ function addItemFromCookies(item) {
   document.getElementById("itemList").appendChild(listItem);
 }
 
-// Function to filter items based on input
 function filterItems(inputText) {
   const itemList = document.getElementById("itemList");
   const items = itemList.getElementsByTagName("li");
   const dropdownContent = document.getElementById("dropdownContent");
   const dropdownItems = dropdownContent.querySelectorAll("div");
 
-  // Clear the previous dropdown content
   dropdownContent.innerHTML = "";
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     const itemName = item.textContent;
 
-    // Check if the item matches the input text with the same letters in the same positions
     if (isMatchingSubstring(itemName, inputText)) {
-      // Create a copy of the list item text without the "X" button
       const dropdownItemText = document.createElement("div");
       dropdownItemText.textContent = itemName.replace("X", "");
 
-      // Add an event listener to populate the input when a dropdown item is clicked
       dropdownItemText.addEventListener("click", function () {
-        document.getElementById("searchInput").value = itemName.replace(
-          "X",
-          ""
-        );
-        dropdownContent.innerHTML = ""; // Clear the dropdown
+        document.getElementById("searchInput").value = itemName.replace("X", "");
+        dropdownContent.innerHTML = "";
         showOnlySelected(itemName.replace("X", ""));
       });
 
@@ -141,7 +125,6 @@ function filterItems(inputText) {
     }
   }
 
-  // Show or hide the dropdown based on the number of matching items and input length
   if (inputText.length > 0 && dropdownItems.length > 0) {
     dropdownContent.style.display = "block";
   } else {
@@ -149,7 +132,6 @@ function filterItems(inputText) {
   }
 }
 
-// Function to check if a string contains a matching substring with the same letters in the same positions
 function isMatchingSubstring(fullString, searchString) {
   if (searchString.length > fullString.length) {
     return false;
@@ -164,7 +146,6 @@ function isMatchingSubstring(fullString, searchString) {
   return true;
 }
 
-// Function to show only the selected item in the items list
 function showOnlySelected(selectedItem) {
   const itemList = document.getElementById("itemList");
   const items = itemList.getElementsByTagName("li");
@@ -174,9 +155,9 @@ function showOnlySelected(selectedItem) {
     const itemName = item.textContent.replace("X", "");
 
     if (itemName === selectedItem) {
-      item.style.display = "flex"; // Show the selected item
+      item.style.display = "flex";
     } else {
-      item.style.display = "none"; // Hide other items
+      item.style.display = "none";
     }
   }
 }
@@ -188,16 +169,13 @@ document.addEventListener("DOMContentLoaded", function () {
     addItem();
   });
 
-  // Initially hide the dropdown menu
   const dropdownContent = document.getElementById("dropdownContent");
   dropdownContent.style.display = "none";
 
-  // Add an input event listener to show/hide the dropdown based on input
   const searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("input", function () {
     filterItems(this.value);
 
-    // Clear the dropdown and show all items when the input text is empty
     if (this.value === "") {
       dropdownContent.innerHTML = "";
       dropdownContent.style.display = "none";
@@ -205,18 +183,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Function to show all items in the items list
   function showAllItems() {
     const itemList = document.getElementById("itemList");
     const items = itemList.getElementsByTagName("li");
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      item.style.display = "flex"; // Show all items
+      item.style.display = "flex";
     }
   }
 
-  // Keyboard navigation
   searchInput.addEventListener("keydown", function (e) {
     const dropdownItems = document.querySelectorAll("#dropdownContent div");
     let selectedItemIndex = -1;
@@ -258,6 +234,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Add an event listener to load items from cookies when the page is loaded
   getItemsFromCookies();
 });
